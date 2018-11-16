@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+</head>
+<body>
+	<div id="#app">{{msg}}</div>
+</body>
+<!-- ① 引入 require.js 和 require.config.js 请注意文件引用路径 -->
+<script src="./script/config/require.config.js"></script>
+<script src="./script/lib/require.js"></script>
+<script type="text/javascript">
+	
+	apiready = function() {
+		//② 加载require的配置
+		require.config(requireConfig);
+		//③ 加载模块
+		require(['vue'] , function (Vue) {
+			//④ 创建vue实例
+			new Vue({
+				el:'#app',
+				data:{
+					msg:'vue+apicloud框架模板文件'
+				}
+			})
+		})
+	};
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+     <style>
+     	#app {
+     		padding: 20px;
+     	}
+     </style>
+</head>
+<body>
+	
+	<div id="app">
+		<!--
+		下拉选择框
+			width:（可省略）
+			height （可省略）
+			maxHeight （可省略）
+			label:列表item显示的文本字段 （data数据为对象数组时不可省略）
+		-->
+		<ch-dropdown
+			width="200px"
+			height="30px"
+			:data="dropdownData"
+			placeholder="请选择"
+			label="text"
+			@item-click="onItemClick">
+		</ch-dropdown>
+	</div>
+
+	<script src="../script/config/require.config.js"></script>
+    <script src="../script/lib/require.js"></script>
+    <script type="text/javascript">
+		apiready = function() {
+			require.config(requireConfig);
+			require(['vue' , 'chDropdown'] , function (Vue , CHDropdown) {
+				new Vue({
+					el:'#app',
+					data:{
+						dropdownData:[
+							{text:'AAA',value:'aaa'},
+							{text:'BBB',value:'bbb'},
+							{text:'CCC',value:'ccc'},
+							{text:'DDD',value:'ddd'},
+							{text:'EEE',value:'eee'},
+							{text:'FFF',value:'fff'},
+							{text:'GGG',value:'ggg'},
+							{text:'HHH',value:'hhh'}
+						]
+					},
+					components:{
+						// 注册组件
+						'ch-dropdown':CHDropdown
+					},
+					methods:{
+						onItemClick:function (item) {
+							api.toast({msg:item.value});
+						}
+					}
+				})
+			})
+		};
+	</script>
+</body>
+
+</html>

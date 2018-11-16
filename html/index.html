@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <style>
+        #app header h1 {
+            text-align: center;
+            line-height: 40px;
+            background:#f0f0f0;
+        }
+        ul li {
+            line-height: 40px;
+            padding-left: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .buttons {
+            padding: 10px;
+        }
+        button {
+            border: 1px solid #3D94DD;
+            border-radius: 4px;
+            height: 40px;
+            padding: 0 10px;
+            margin-left: 10px;
+        }
+       
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>AMD</h1>
+        </header>
+        <div class="main">
+            <ul>
+                <li v-for="menu in menus"
+                    @click="handleItemClick(menu.pageName)">{{menu.title}}</li>
+            </ul>
+            <div class="buttons">
+                <button @click='deleteAllTable'>{{i18n.DELETE_ALL_TABLE}}</button>
+                <button @click='deleteDB'>{{i18n.DELETE_ALL_DB}}</button>
+            </div>
+            
+        </div>
+    </div>
+</body>
+<script src="../script/config/require.config.js"></script>
+<script src="../script/lib/require.js"></script>
+<script>
+
+    apiready = function () {
+        require.config(requireConfig);
+        require(['vue', 'chI18n' , 'db' , 'fastclick' , 'fs' , 'config' , 'utils'] ,
+        function (Vue , chI18n , db , FastClick , fs , config , utils) {
+            new Vue({
+                el:"#app",
+                data:{
+                    i18n:chI18n,    // 国际化
+                    menus:[
+                        {title:chI18n.LABEL_OPERATE_DB,pageName:"db"},
+                        {title:chI18n.LABEL_HTTP,pageName:"http"},
+                        {title:chI18n.LABEL_FILE,pageName:"file"},
+                        {title:chI18n.LABEL_AES,pageName:"crypto"},
+                        {title:chI18n.LABEL_COMP,pageName:"components"}
+                    ]
+                },
+                mounted:function () {
+                    FastClick.attach(document.body);
+                    db.open();
+                },
+                methods:{
+                    handleItemClick:function (pageName) {
+                        api.openWin({
+                            name: pageName,
+                            url: pageName + ".html"
+                        });
+                    },
+                    deleteAllTable:function () {
+                        db.clear().then(function () {
+                            api.toast({msg:chI18n.TOAST_DELETE_ALL_TABLE_SUCCESS});
+                        }).catch(function (e) {
+                            alert(JSON.stringify(e));
+                        })
+                    },
+                    deleteDB:function () {
+                        db.close(function () {
+                            fs.delete(config.dbPath).then(function (status) {
+                                var msg = status ? chI18n.TOAST_DELETE_DB_SUCCESS :
+                                                   chI18n.TOAST_DELETE_DB_FAILURE ;
+                                api.toast({msg:msg});
+                            })
+                        });
+                    }
+                }
+            })
+        })
+    }
+
+</script>
+</html>

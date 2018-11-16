@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<style>
+		#app {
+			padding:20px;
+		}
+        p {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        button {
+            padding:0 15px;
+            height: 40px;
+            border: 1px solid #ddd ;
+            border-radius:4px;
+            display: inline-block;
+            margin-right:10px;
+        }
+        textarea {
+        	width:600px;
+        	height:200px;
+        	padding:10px;
+        	resize:none;
+        	border:1px solid #349EFF;
+        }
+        .progress-box {
+        	width:400px;
+        	height:4px;
+        	margin-top:20px;
+        	position:relative ;
+        }
+        .progress-bar {
+        	position:absolute;
+        	height:100%;
+        	left:0;
+        	top:0;
+        }
+        .progress-bar.dark {
+        	width:100%;
+        	background-color:#333333;
+        }
+        .progress-bar.light {
+        	background-color:#2FD50C;
+        }
+	</style>
+</head>
+<body>
+    <div id="app">
+        <textarea v-model="content"></textarea>
+        <div style="margin-top:10px;">
+            <button @click="handleSendHttp">{{i18n.LABEL_SEND_GET}}</button>
+            <button @click="handleSendEncode">{{i18n.LABEL_SEND_POST}}</button>
+            <button @click="handleUpload">{{i18n.LABEL_UPLOAD_FILE}}</button>
+            <button @click="handleDownload">{{i18n.LABEL_DOWNLOAD_FILE}}</button>
+        </div>
+        <div class="progress-box">
+        	<div class="progress-bar dark"></div>
+        	<div class="progress-bar light" :style="{width:progress}"></div>
+        </div>
+    </div>
+    <script src="../script/config/require.config.js"></script>
+    <script src="../script/lib/require.js"></script>
+    <script>
+        apiready = function () {
+            require.config(requireConfig);
+            require(["vue" , "fastclick" , "apiHttp" , 'apiConfig' ,'chI18n'] ,
+            function (Vue , FastClick , apiHttp , chApi , chI18n) {
+				
+                new Vue({
+                    el:"#app",
+                    data:{
+                        i18n:chI18n,
+                        progress:'0',
+                        content:"请输入内容"
+                    },
+                    mounted:function () {
+                        FastClick.attach(document.body);
+                    },
+                    methods:{
+                        // 发送GET请求
+                        handleSendHttp:function () {
+                            var that = this ;
+                            apiHttp.get(chApi.getUsers).then(function (result) {
+                                that.content = result.data ;
+                            });
+                        },
+                        // 发送加密的POST请求
+                        handleSendEncode:function () {
+                            var that = this ;	
+                            apiHttp.post(chApi.login, {uname:'hwk',age:24}).then(function (result) {
+                                that.content = result.data;
+                            });
+                        },
+                        // 上传文件
+                        handleUpload:function () {
+                        	var that = this ;
+                        	apiHttp.upload(chApi.upload , {
+                        		name:'king',
+                        		files:'widget://res/android.zip'
+                        	} , function (ret) {
+                        		if(ret) {
+                        			that.progress = ret.progress+"%";
+                        			if(ret.status == 1) {
+                        				that.progress = "100%";
+                        				api.toast({msg:'上传成功'});
+                        			}
+                        		}
+                        	});
+                        },
+                        // 下载文件 
+                        handleDownload:function () {
+                        	apiHttp.download(chApi.download , 'fs://res/android.zip' , function () {
+                        		if(ret) {
+                        			that.progress = ret.percent+"%";
+                        			if(ret.state == 1) {
+                        				that.progress = "100%";
+                        				api.toast({msg:'下载成功'});
+                        			}
+                        		}
+                        	});
+                        }
+                    }
+                })
+            })
+        }
+    </script>
+</body>
+
+</html>

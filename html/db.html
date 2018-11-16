@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<style>
+		
+        .user-list {
+        	max-height: 500px;	
+        	overflow:auto;
+        }
+        .user-list ul {
+        	background-color:#DDDDDD;
+        }
+        .row {
+        	overflow:hidden;
+        }
+        .row span {
+            width: calc(100% / 6);
+            float:left;
+            text-align: center;
+            line-height: 35px;
+        }
+        .buttons {
+            padding: 10px;
+        }
+        button {
+            height:30px;
+            padding: 0 5px;
+            border: 1px solid #dddddd;
+            margin-left: 10px;
+        }
+	</style>
+</head>
+<body>
+    <div id="app">
+        <div class="buttons">
+            <button type="button" @click="handleInitTable">{{i18n.LABEL_INIT_TABLE}}</button>
+            <button type="button" @click="handleInsert">{{i18n.LABEL_INSERT}}</button>
+            <button type="button" @click="handleQuery">{{i18n.LABEL_QUERY}}</button>
+            <button type="button" @click="handleDel">{{i18n.LABEL_DELETE}}</button>
+            <button type="button" @click="handleUpdate">{{i18n.LABEL_UPDATE}}</button>
+        </div>
+        <div>
+            <p>{{message}}</p>
+        </div>
+        <div class="row">
+            <span>ID</span>
+            <span>USERID</span>
+            <span>NAME</span>
+            <span>PASSWD</span>
+            <span>AGE</span>
+            <span>SEX</span>
+        </div>
+        <div class="user-list">
+        	<ul>
+	            <li class="row" v-for="item in list">
+	                <span>{{item._id}}</span>
+	                <span>{{item.userId}}</span>
+	                <span>{{item.uname}}</span>
+	                <span>{{item.passwd}}</span>
+	                <span>{{item.age}}</span>
+	                <span>{{item.sex}}</span>
+	            </li>
+	        </ul>
+        </div>
+        
+    </div>
+    <script src="../script/config/require.config.js"></script>
+    <script src="../script/lib/require.js"></script>
+    <script type="text/javascript">
+        apiready = function () {
+            require.config(requireConfig);
+            require(['vue' , 'db' , 'chI18n' , 'apiHttp' , 'utils' , 'apiConfig'] ,
+            function (Vue , db , chI18n , apiHttp , utils , chApi) {
+                new Vue({
+                    el:"#app",
+                    data:{
+                        i18n:chI18n,
+                        list:[],
+                        message:""
+                    },
+                    mounted:function () {
+                        this.handleQuery();
+                    },
+                    methods:{
+                        // 初始化表之后，检查是表配置文件，是否有新增字段
+                        handleInitTable:function () {
+                            db.initTable().then(function (ret) {
+                                return db.checkTbColumn();
+                            }).then(function () {
+                                api.toast({msg:'数据库表已初始化完成'});
+                            }).catch (function (e) {
+                                if(e) {
+                                    alert(chI18n.DB_ERROR_MSG);
+                                }
+                            })
+                        },
+                        // 插入数据之前，要检查一下是否有新增字段(如果提前约定好，可以不用这一步)
+                        handleInsert:function () {
+                            var that = this , list = [] ;
+                            apiHttp.get(chApi.insert)
+                            .then(function (result) {
+                                list = result.data ;
+                                return db.checkTbColumn('tb_user' , list[0]);
+                            }).then(function () {
+                                that.insert(list);
+                            }).catch(function (e) {
+                                alert(chI18n.DB_ERROR_MSG);
+                            });
+                        },
+                        insert:function (list) {
+                            var that = this ;
+                            db.insertAll( 'tb_user' , list).then(function () {
+                                api.toast({msg:'已插入'+list.length+'条数据'});
+                                that.handleQuery();
+                            }).catch(function () {
+                                api.toast({msg:'数据插入失败'})
+                            });
+                        },
+                        handleQuery:function () {
+                            var that = this ;
+                            db.select("tb_user")
+                            .then(function (result) {
+                                that.list = result ;
+                            }).catch(function (e) {
+                                if(e) {
+                                    that.handleInitTable();
+                                }
+                            })
+                        },
+                        handleDel:function () {
+                            db.delete('tb_user' , '_id = 1').then(function (ret) {
+                                api.toast({msg:'删除成功'});
+                            });
+                        },
+                        handleUpdate:function () {
+                            db.update('tb_user' , {uname:'AAAAA'} , '_id = 2').then(function () {
+                                api.toast({msg:'id = 2 的数据uname更新为AAAAA'});
+                            }).catch (function (e) {
+                                if(e) {
+                                    alert(chI18n.DB_ERROR_MSG);
+                                }
+                            })
+                        }
+                    }
+                })
+            })
+        }
+    </script>
+</body>
+</html>

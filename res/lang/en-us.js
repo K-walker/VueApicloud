@@ -1,0 +1,57 @@
+(function () {
+    return {
+        // 系统默认提示
+        // aes
+        DATA_ENCRYPTION_FAILURE:'data encryption failure',
+        DATA_DECRYPTION_FAILURE:'data decryption failure',
+        // http
+        LOADING_TITLE_INFO : "loading",
+        LOADING_TEXT_INFO : "please ...",
+        DATA_FORMAT_ERROR : "parameter format error",
+        REQUEST_IS_NOT_AVAILABEL : "The requested resource is not available",
+        NET_ERROR:'Network Error',
+        NET_TIME_OUT:'Network Timeout',
+        NET_DATA_TYPE_ERROR:'Data Type Error',
+        NET_AUTHORIZE_ERROR:'Authorize Error',
+        SERVER_ERROR:'Server Error',
+        UPLOAD_ERROR_MSG : "Upload Error",
+        DOWNLOAD_ERROR_MSG : "Download Error",
+        
+        // db
+        DB_ERROR_MSG:'database error',
+        // fs
+        UNZIP_SUCCESS_MSG:'success of file decompression',
+        UNZIP_FAILURE_MSG:'failure of file decompression',
+        // utils
+        PLEASE_ENTER_THE_CORRECT_FLIGHTNO:'please_enter_the_correct_flightno',
+        ALBUM_SELECT_NUM:'selected*item',
+        ALBUM_SELECT_CANCEL:'cancel',
+        ALBUM_SELECT_SUCCESS:'finish',
+
+        DELETE_ALL_TABLE:'clear all table',
+        DELETE_ALL_DB:'remove db',
+        LABEL_OPERATE_DB:'DB',
+        LABEL_HTTP:'Http',
+        LABEL_FILE:'FILE',
+        LABEL_AES:'AES',
+        LABEL_COMP:'Components',
+
+        TOAST_DELETE_ALL_TABLE_SUCCESS:'All tables have been deleted',
+        TOAST_DELETE_DB_SUCCESS:'Delete database success',
+        TOAST_DELETE_DB_FAILURE:'Delete database failure',
+
+        LABEL_SEND_GET:'GET',
+        LABEL_SEND_POST:'POST',
+        LABEL_UPLOAD_FILE:'UPLOAD',
+        LABEL_DOWNLOAD_FILE:'DOWNLOAD',
+
+        TOAST_NAME:'name',
+        TOAST_AGE:'age',
+
+        LABEL_INIT_TABLE:'INIT TABLE',
+        LABEL_INSERT:'INSERT',
+        LABEL_QUERY:'QUERY',
+        LABEL_DELETE:'DELETE',
+        LABEL_UPDATE:'UPDATE',
+    }
+})();

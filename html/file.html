@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<style>
+        body {
+            overflow: hidden;
+        }
+        button {
+            padding: 0 15px ;
+            height: 40px;
+            border:1px solid #ddd ;
+            border-radius: 4px;
+        }
+        p {
+            padding: 10px;
+            min-height: 200px;
+        }
+	</style>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <button type="button" @click="handleCopy">复制</button>
+        <button type="button" @click="handleMove">移动</button>
+        <button type="button" @click="handleDel">删除</button>
+        <button type="button" @click="handleRead">读取</button>
+    </div>
+    <script src="../script/config/require.config.js"></script>
+    <script src="../script/lib/require.js"></script>
+    <script type="text/javascript">
+        apiready = function () {
+			require.config(requireConfig);
+            require(["vue","apiHttp", "fs"] , function (Vue , apiHttp , fs) {
+                new Vue({
+                    el:"#app",
+                    data:{
+                        message:""
+                    },
+                    methods:{
+                        handleCopy:function () {
+                            fs.copyTo("widget://res/data/f1.txt","fs://res/data");
+                        },
+                        handleMove:function () {
+                            fs.moveTo("widget://res/data/f2.txt","fs://res/data");
+                        },
+                        handleDel:function () {
+                            fs.delete("fs://res/data/f1.txt");
+                        },
+                        handleRead:function () {
+                            var that = this ;
+                            fs.read({path:"fs://res/data/f2.txt"}).then(function (res) {
+                            	that.message = res.data ;
+                            }).catch(function (err) {
+                            	alert(JSON.stringify(err));
+                            });
+                        }
+                    }
+                })
+            })
+        }
+    </script>
+</body>
+
+</html>

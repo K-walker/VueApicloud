@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <title>APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+	<style>
+		button {
+			min-width:80px;
+			height:40px;  
+			padding:0 10px;
+			border-radius:20px;
+			background-color:#349EFF;
+			color:#fff;
+			margin-left:10px;
+			margin-top:10px;
+		}
+		.content {
+			margin-top:10px;
+			padding:20px;
+		}
+		.content p {
+			line-height:30px;
+		}
+	</style>
+</head>
+<body>
+    <div id="app">
+        <button @click="handleMD5">MD5加密</button>
+        <button @click="handleSHA512">SHA512加密</button>
+        <button @click="handleSHA256">SHA256加密</button>
+        <button @click="handleAESEncrypt">AES加密</button>
+        <button @click="handleAESDecrypt">AES解密</button>
+        <button @click="handleDESEncrypt">DES加密</button>
+        <button @click="handleDESDecrypt">DES解密</button>
+        <button @click="handleStrToBase64">str->base64</button>
+        <button @click="handleBase64ToStr">base64->str</button>
+        <button @click="handleStrToHex">str->hex</button>
+        <button @click="handleHexToStr">hex->str</button>
+        <button @click="handlePublicKeyEncrypt">RSA加密</button>  
+        <button @click="handlePrivateKeyEncrypt">RSA解密</button>
+        
+        <div class="content">
+        	<p>AES密钥:{{key}}</p>
+        	<p>加密原文:{{message}}</p>
+        	<p>加密后密文:{{encryptSrt}}</p>
+        	<p>解密结果:{{decryptSrt}}</p>
+        </div>
+        
+    </div>
+    <script src="../script/config/require.config.js"></script>
+    <script src="../script/lib/require.js"></script>
+    <script>
+    	apiready = function () {
+            require.config(requireConfig);
+            require(['vue' , 'crypto'] , function (Vue , Crypto) {
+            	
+            	new Vue({
+            		el:'#app',
+            		data:{
+						key:"",
+		                message:"源代码abcd",
+		                encryptSrt:"",
+		                decryptSrt:"",
+		                rsaKey:null,          		
+            		},
+            		created:function () {
+		               this.key = Crypto.AES.getKey() ;
+		               this.rsaKey = Crypto.RSA.getKey() ;
+		            },
+            		methods:{
+            			// HASH 算法
+		                handleMD5:function () { 
+		                    this.encryptSrt = Crypto.MD5(this.message)
+		                },
+		                
+		                handleSHA512:function () {
+		                    this.encryptSrt = Crypto.SHA512(this.message);
+		                },
+		                handleSHA256:function () {
+		                   this.encryptSrt = Crypto.SHA256(this.message);
+		                },
+						
+		                // 对称加密 AES
+		                handleAESEncrypt:function () {
+		                	this.decryptSrt = "";
+		                    this.encryptSrt = Crypto.AES.encrypt(this.message , this.key);
+		                },
+		                handleAESDecrypt:function () {
+		                    this.decryptSrt = Crypto.AES.decrypt(this.encryptSrt , this.key)
+		                },
+		
+		                // DES
+		                handleDESEncrypt:function () {
+		                	this.decryptSrt = "";
+		                    this.encryptSrt = Crypto.DES.encrypt(this.message , this.key);
+		                },
+		                handleDESDecrypt:function () {
+		                    this.decryptSrt = Crypto.DES.decrypt(this.encryptSrt, this.key);
+		                },
+		                
+		                // 转码
+		                handleStrToBase64:function () {
+		                	this.decryptSrt = "";
+		                    this.encryptSrt = Crypto.Base64.encode(this.message);
+		                },
+		                handleBase64ToStr:function () {
+		                    this.decryptSrt = Crypto.Base64.decode(this.encryptSrt);
+		                },
+		
+		                handleStrToHex:function () {
+		                	this.decryptSrt = "";
+		                    this.encryptSrt = Crypto.Hex.encode(this.message);
+		                },
+		                handleHexToStr:function () {
+		                    this.decryptSrt = Crypto.Hex.decode(this.encryptSrt);
+		                },
+		
+		                // RSA
+		                handlePublicKeyEncrypt:function () {
+		                	this.decryptSrt = "";
+		                    this.encryptSrt = Crypto.RSA.encrypt(this.message , this.rsaKey.getPublicBaseKeyB64())
+		                },
+		                handlePrivateKeyEncrypt:function () {
+		                    this.decryptSrt = Crypto.RSA.decrypt(this.encryptSrt , this.rsaKey.getPrivateBaseKeyB64())
+		                }
+            		}
+            	})
+            });
+        }
+    </script>
+</body>
+
+</html>
