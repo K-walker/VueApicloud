@@ -8,15 +8,19 @@ VueApicloud
     |-html
     |-image
     |-res
-       |-lang
+        |-lang
+          |-en-us.js
+          |-zh-cn.js
     |-script
-       |-components
-       |-config
-           |-env.config.js
-           |-require.config.js
-           |-table.config.js
-       |-lib
-       |-modules
+        |-components
+          |-env.config.js
+        |-config
+          |-api.config.js
+          |-env.config.js
+          |-require.config.js
+          |-table.config.js
+        |-lib
+        |-modules
     config.xml
 ```
 > res/lang : 存放国际化语言文件
@@ -34,30 +38,30 @@ VueApicloud
 > env.config.js 中包含一些关于项目的配置，如:开发环境，数据库，模拟账号等配置。
 > table.config.js 则是用来定义表结构，具体定义方式，参考 table.config.js 中示例代码
 > 在项目中如何使用:
-    首先在html文件中引入以下公共代码
-    ```
-        <script src="../script/config/require.config.js"></script>
-        <script src="../script/lib/require.js"></script>
-        <script>
-            apiready = function () {
-                // 加载require配置 参数 requireConfig
-                require.config(requireConfig);
-                // 加载当前页面所需模块
-                require(['vue' , 'db'] , function (Vue , db) {
-                    new Vue({
-                        el:'#app',
-                        data:{
+    
+```
+    <script src="../script/config/require.config.js"></script>
+    <script src="../script/lib/require.js"></script>
+    <script>
+        apiready = function () {
+            // 加载require配置 参数 requireConfig
+            require.config(requireConfig);
+            // 加载当前页面所需模块
+            require(['vue' , 'db'] , function (Vue , db) {
+                new Vue({
+                    el:'#app',
+                    data:{
 
-                        },
-                        created:function () {
-                            // 初始化数据库，且仅需在项目中只调用这一次
-                            db.open();
-                        }
-                    })
+                    },
+                    created:function () {
+                        // 初始化数据库，且仅需在项目中只调用这一次
+                        db.open();
+                    }
                 })
-            }
-        </script>  
-    ```
+            })
+        }
+    </script>  
+```
 # 开发中需要注意的细节
 
 > 在使用数据库之前，一定要先调用 db.open() 初始化数据库（且仅需在项目中只调用这一次）
@@ -73,7 +77,7 @@ VueApicloud
         data:[]          // 接口返回的具体数据Array或Object
     }
     当前请求方式(非表单提交):
-        Content-Type:'appplication/json'
+        `Content-Type:'appplication/json'`
     body为json对象或字符串
     详细配置请参考apicloud [ajax配置](https://docs.apicloud.com/Client-API/api#3)
    注意，这里的请求方式需与后台协商好，本项目中只是一个示例，根据你自己实际情况进行修改
