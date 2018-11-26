@@ -23,12 +23,13 @@ VueApicloud
         |-modules
     config.xml
 ```
+
 > res/lang : 存放国际化语言文件
 > script/components : 存放一些公共组件
 > script/config :  这个目录下有三个配置文件，分别为 :
-    env.config.js: 项目环境配置
-    require.config.js: 模块加载的配置
-    table.config.js: 数据库表的配置
+    > env.config.js: 项目环境配置
+    > require.config.js: 模块加载的配置
+    > table.config.js: 数据库表的配置
 > script/lib :  第三方包
 > script/modules : 项目中常用的公共模块  
 
