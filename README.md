@@ -9,38 +9,53 @@ VueApicloud
     |-image
     |-res
         |-lang
-          |-en-us.js
-          |-zh-cn.js
+          |-enus.json
+          |-zhcn.json
     |-script
         |-components
-          |-env.config.js
+          |-dropdown.js
         |-config
-          |-api.config.js
-          |-env.config.js
-          |-require.config.js
-          |-table.config.js
+          |-apiconfig.js
+          |-envconfig.js
+          |-requireconfig.js
+          |-tableconfig.js
         |-lib
         |-modules
-    config.xml
+          |-chi18n.js
+          |-cryptoutils.js
+          |-db.js
+          |-fs.js
+          |-http.js
+          |-utils.js
+    |-config.xml
 ```
 
-> res/lang : 存放国际化语言文件
-> script/components : 存放一些公共组件
-> script/config :  这个目录下有三个配置文件，分别为 :
-    > env.config.js: 项目环境配置
-    > require.config.js: 模块加载的配置
-    > table.config.js: 数据库表的配置
-> script/lib :  第三方包
-> script/modules : 项目中常用的公共模块  
+# 目录结构介绍
+
+1. res/lang : 存放国际化语言文件
+2. script/components : 存放一些公共组件
+3. script/config :  这个目录下有三个配置文件，分别为 :
+    1> envconfig.js: 项目环境配置
+    2> requireconfig.js: 模块加载的配置
+    3> tableconfig.js: 数据库表的配置
+4. script/lib :  第三方包
+5. script/modules : 项目中常用的公共模块
+    1> chi18n.js: 加载国际化文件的模块
+    2> cryptoutils.js: 加解密工模块
+    3> db.js:   数据库操作模块
+    4> fs.js:   文件操作模块
+    5> http.js: http请求模块
+    6> utils.js:常用公共方法模块
 
 # 使用
 
-> 首先需要在 require.config.js 文件中配置好，项目中所需要用的js库和模块 （如何配置请阅读requirejs了解）
-> env.config.js 中包含一些关于项目的配置，如:开发环境，数据库，模拟账号等配置。
-> table.config.js 则是用来定义表结构，具体定义方式，参考 table.config.js 中示例代码
-> 在项目中如何使用:
+首先需要在 require.config.js 文件中配置好，项目中所需要用的js库和模块 （如何配置请阅读requirejs了解）
+env.config.js 中包含一些关于项目的配置，如:开发环境，数据库，模拟账号等配置。
+table.config.js 则是用来定义表结构，具体定义方式，参考 table.config.js 中示例代码
+
+## 示例代码:
     
-```
+```html
     <script src="../script/config/require.config.js"></script>
     <script src="../script/lib/require.js"></script>
     <script>
@@ -63,6 +78,7 @@ VueApicloud
         }
     </script>  
 ```
+
 # 开发中需要注意的细节
 
 > 在使用数据库之前，一定要先调用 db.open() 初始化数据库（且仅需在项目中只调用这一次）
@@ -73,10 +89,12 @@ VueApicloud
     要修改下httpPromise.js 文件中 handleResponse 中的处理方式
     以及在发送请求时的配置设置，已我当前项目为例：
     接口返回格式:
+```
     {
         msg:'success',   // msg 为success则成功，其他则失败
         data:[]          // 接口返回的具体数据Array或Object
     }
+```
     当前请求方式(非表单提交):
         `Content-Type:'appplication/json'`
     body为json对象或字符串
