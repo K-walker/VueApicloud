@@ -99,8 +99,11 @@ VueApicloud
     }
 ```
 当前请求方式(非表单提交): `Content-Type:'appplication/json'` ， body为json对象或字符串
-    
 详细配置请参考apicloud [ajax配置](https://docs.apicloud.com/Client-API/api#3)
 注意，这里的请求方式需与后台协商好，本项目中只是一个示例，根据你自己实际情况进行修改
+
+6. 由于接口请求使用了 `RSA+AES` 的数据加密模式，因此每个接口的公私钥统一由后台生成，公钥提前告诉前端（参考 apiconfig.js 配置） 
+
+
 
 
