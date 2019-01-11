@@ -34,7 +34,7 @@ VueApicloud
     |-config.xml
 ```
 
-# 目录结构介绍
+# 目录结构说明
 
 1. res/lang : 存放国际化语言文件
 2. script/components : 存放一些公共组件
