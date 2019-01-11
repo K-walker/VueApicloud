@@ -35,23 +35,23 @@ VueApicloud
 1. res/lang : 存放国际化语言文件
 2. script/components : 存放一些公共组件
 3. script/config :  这个目录下有三个配置文件，分别为 :
-    1> envconfig.js: 项目环境配置
-    2> requireconfig.js: 模块加载的配置
-    3> tableconfig.js: 数据库表的配置
+> 1.envconfig.js: 项目环境配置
+> 2.requireconfig.js: 模块加载的配置
+> 3.tableconfig.js: 数据库表的配置
 4. script/lib :  第三方包
 5. script/modules : 项目中常用的公共模块
-    1> chi18n.js: 加载国际化文件的模块
-    2> cryptoutils.js: 加解密工模块
-    3> db.js:   数据库操作模块
-    4> fs.js:   文件操作模块
-    5> http.js: http请求模块
-    6> utils.js:常用公共方法模块
+> 1.chi18n.js: 加载国际化文件的模块
+> 2.cryptoutils.js: 加解密工模块
+> 3.db.js:   数据库操作模块
+> 4.fs.js:   文件操作模块
+> 5.http.js: http请求模块
+> 6.utils.js:常用公共方法模块
 
 # 使用
 
-首先需要在 require.config.js 文件中配置好，项目中所需要用的js库和模块 （如何配置请阅读requirejs了解）
-env.config.js 中包含一些关于项目的配置，如:开发环境，数据库，模拟账号等配置。
-table.config.js 则是用来定义表结构，具体定义方式，参考 table.config.js 中示例代码
+首先需要在 `requireconfig.js` 文件中配置好，项目中所需要用的js库和模块 （如何配置请阅读[requirejs](https://requirejs.org/)了解）
+`envconfig.js` 中包含一些关于项目的配置，如:开发环境，数据库，模拟账号等配置。
+`tableconfig.js` 则是用来定义表结构，具体定义方式，参考 `tableconfig.js` 中示例代码
 
 ## 示例代码:
     
