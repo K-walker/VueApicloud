@@ -87,7 +87,8 @@ VueApicloud
 4. 如果后台接口中新增了字段，记得在插入数据之前检查一下是否有新增字段(详见db.html)
 5. 由于每个项目组接口返回的格式可能不一样，在确定好返回格式之后， 要修改下httpPromise.js 文件中 handleResponse 中的处理方式，以及在发送请求时的配置设置，已我当前项目为例：
 
-```json 接口返回格式
+```
+    // 接口返回格式
     {
         msg:'success',   // msg 为success则成功，其他则失败
         data:[]          // 接口返回的具体数据Array或Object
