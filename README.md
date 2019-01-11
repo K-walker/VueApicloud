@@ -35,9 +35,9 @@ VueApicloud
 1. res/lang : 存放国际化语言文件
 2. script/components : 存放一些公共组件
 3. script/config :  这个目录下有三个配置文件，分别为 :
-> 1.envconfig.js: 项目环境配置
-> 2.requireconfig.js: 模块加载的配置
-> 3.tableconfig.js: 数据库表的配置
+    1. envconfig.js: 项目环境配置
+    2. requireconfig.js: 模块加载的配置
+    3. tableconfig.js: 数据库表的配置
 4. script/lib :  第三方包
 5. script/modules : 项目中常用的公共模块
 > 1.chi18n.js: 加载国际化文件的模块
