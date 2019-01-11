@@ -3,9 +3,10 @@
  */
 define(function () {
 	var lang = (navigator.language || navigator.browserLanguage).toLowerCase() ;
-	var data = api.readFile({ 
+	var data = api.readFile({
 		sync: true ,
-		path: 'widget://res/lang/' +lang+ '.js'
+		path: 'widget://res/lang/' +lang.replace(/-/g,'')+ '.json'
 	});
-    return eval(data) || {} ;
+	if(data == '') throw Error('not found ' + lang + '.json');
+    return eval(data);
 })

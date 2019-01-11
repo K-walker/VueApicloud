@@ -8,23 +8,32 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css"/>
 </head>
 <body>
-	<div id="#app">{{msg}}</div>
+	<div id="app">
+		<h1>{{msg}}</h1>
+	</div>
 </body>
 <!-- ① 引入 require.js 和 require.config.js 请注意文件引用路径 -->
-<script src="./script/config/require.config.js"></script>
-<script src="./script/lib/require.js"></script>
-<script type="text/javascript">
+<script src="../script/config/requireconfig.js"></script>
+<script src="../script/lib/require.js"></script>
+<script>
 	
 	apiready = function() {
-		//② 加载require的配置
+		// ② 加载require的配置
 		require.config(requireConfig);
-		//③ 加载模块
-		require(['vue'] , function (Vue) {
-			//④ 创建vue实例
+		// ③ 加载模块
+		require(['vue' , 'chI18n' ,'db' , 'fastclick' , 'config'],
+		function (Vue , chI18n , db , FastClick , config) {
 			new Vue({
 				el:'#app',
-				data:{
-					msg:'vue+apicloud框架模板文件'
+				data: {
+					msg:'VUE + APICLOUD' + chI18n.LOADING_TITLE_INFO
+				},
+				created: function () {
+					db.open();
+				},
+				mounted: function () {
+					FastClick.attach(document.body);
+					alert(config.dbPath)
 				}
 			})
 		})

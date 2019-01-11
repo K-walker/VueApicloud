@@ -3,29 +3,29 @@
         baseUrl:"../script/modules",
         paths:{
             // 第三方库
-            vue:"../lib/vue.min",
+            vue:"../lib/vue",
             fastclick:"../lib/fastclick",
-            jquery:"../lib/jquery-1.8.0.min",
-            promise:"../lib/es6-promise.min",
+            jquery:"../lib/jquery180min",
+            promise:"../lib/es6promisemin",
             $api:"../lib/api",
-            crypto:"../lib/crypto.min",
+            crypto:"../lib/cryptomin",
 
             // 项目环境配置
-            config:'../config/env.config',
+            config:'../config/envconfig',
             // 数据库表配置
-            tbConfig:'../config/table.config',
+            tbConfig:'../config/tableconfig',
             // api 接口配置
-            apiConfig:'../config/api.config',
+            apiConfig:'../config/apiconfig',
             // 工具
             utils:"utils",
-            
+
             // 公共功能模块
-            chI18n:"chI18n",
+            chI18n:"chi18n",
             apiHttp:"http",
             db:"db",
             fs:"fs",
             // 加解密模块
-            cryptoUtils:"cryptoUtils",
+            cryptoUtils:"cryptoutils",
 
             // 组件 (请根据自己的需求添加)
             chDropdown:'../components/dropdown'

@@ -9,7 +9,7 @@
 	<style>
 		button {
 			min-width:80px;
-			height:40px;  
+			height:40px;
 			padding:0 10px;
 			border-radius:20px;
 			background-color:#349EFF;
@@ -39,24 +39,24 @@
         <button @click="handleBase64ToStr">base64->str</button>
         <button @click="handleStrToHex">str->hex</button>
         <button @click="handleHexToStr">hex->str</button>
-        <button @click="handlePublicKeyEncrypt">RSA加密</button>  
+        <button @click="handlePublicKeyEncrypt">RSA加密</button>
         <button @click="handlePrivateKeyEncrypt">RSA解密</button>
-        
+
         <div class="content">
         	<p>AES密钥:{{key}}</p>
         	<p>加密原文:{{message}}</p>
         	<p>加密后密文:{{encryptSrt}}</p>
         	<p>解密结果:{{decryptSrt}}</p>
         </div>
-        
+
     </div>
-    <script src="../script/config/require.config.js"></script>
+    <script src="../script/config/requireconfig.js"></script>
     <script src="../script/lib/require.js"></script>
     <script>
     	apiready = function () {
             require.config(requireConfig);
             require(['vue' , 'crypto'] , function (Vue , Crypto) {
-            	
+
             	new Vue({
             		el:'#app',
             		data:{
@@ -64,7 +64,7 @@
 		                message:"源代码abcd",
 		                encryptSrt:"",
 		                decryptSrt:"",
-		                rsaKey:null,          		
+		                rsaKey:null,
             		},
             		created:function () {
 		               this.key = Crypto.AES.getKey() ;
@@ -72,17 +72,17 @@
 		            },
             		methods:{
             			// HASH 算法
-		                handleMD5:function () { 
+		                handleMD5:function () {
 		                    this.encryptSrt = Crypto.MD5(this.message)
 		                },
-		                
+
 		                handleSHA512:function () {
 		                    this.encryptSrt = Crypto.SHA512(this.message);
 		                },
 		                handleSHA256:function () {
 		                   this.encryptSrt = Crypto.SHA256(this.message);
 		                },
-						
+
 		                // 对称加密 AES
 		                handleAESEncrypt:function () {
 		                	this.decryptSrt = "";
@@ -91,7 +91,7 @@
 		                handleAESDecrypt:function () {
 		                    this.decryptSrt = Crypto.AES.decrypt(this.encryptSrt , this.key)
 		                },
-		
+
 		                // DES
 		                handleDESEncrypt:function () {
 		                	this.decryptSrt = "";
@@ -100,7 +100,7 @@
 		                handleDESDecrypt:function () {
 		                    this.decryptSrt = Crypto.DES.decrypt(this.encryptSrt, this.key);
 		                },
-		                
+
 		                // 转码
 		                handleStrToBase64:function () {
 		                	this.decryptSrt = "";
@@ -109,7 +109,7 @@
 		                handleBase64ToStr:function () {
 		                    this.decryptSrt = Crypto.Base64.decode(this.encryptSrt);
 		                },
-		
+
 		                handleStrToHex:function () {
 		                	this.decryptSrt = "";
 		                    this.encryptSrt = Crypto.Hex.encode(this.message);
@@ -117,7 +117,7 @@
 		                handleHexToStr:function () {
 		                    this.decryptSrt = Crypto.Hex.decode(this.encryptSrt);
 		                },
-		
+
 		                // RSA
 		                handlePublicKeyEncrypt:function () {
 		                	this.decryptSrt = "";

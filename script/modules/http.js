@@ -1,14 +1,14 @@
 /**
  * http请求模块
  */
-define(["cryptoUtils" , 'promise' , 'config' , 'chI18n'] , 
+define(["cryptoUtils" , 'promise' , 'config' , 'chI18n'] ,
 function (cryptoUtils , Promise , config , chI18n) {
-	
+
     var ApiHttp = function () {
         this.HOST = config.production ? config.releaseUrl : config.devUrl;
         this.TIME_OUT = config.timeout ;               // 超时时间
     }
-	
+
     /**
      * get 请求
      * @param {object} chApi 	api接口对象
@@ -22,11 +22,11 @@ function (cryptoUtils , Promise , config , chI18n) {
             loading:loading
         });
     }
-	
+
     /**
      * post 加密请求
      * @param {object} chApi api接口对象
-     * @param {object} params 请求参数 
+     * @param {object} params 请求参数
      * @param {boolean} loading 是否显示loading框，默认显示
      */
     ApiHttp.prototype.post = function (chApi , params , loading) {
@@ -35,7 +35,7 @@ function (cryptoUtils , Promise , config , chI18n) {
             return self.sendPost(chApi , encodeURIComponent(encryptParams) , loading);
         });
     }
-	
+
     /**
      * 无加密参数的post请求
      */
@@ -73,9 +73,9 @@ function (cryptoUtils , Promise , config , chI18n) {
             });
         });
     }
-	
+
 	/**
-	 * 文件上传 
+	 * 文件上传
 	 */
 	ApiHttp.prototype.upload = function (chApi , params , callback) {
         var that = this ;
@@ -96,9 +96,9 @@ function (cryptoUtils , Promise , config , chI18n) {
              that.handleFileResponse(ret , err , callback);
         });
     }
-	
+
 	/**
-	 * callback(ret) 
+	 * callback(ret)
 	 * 上传
 	 * 	progress: 100,          //上传进度，0.00-100.00
 	 *  status: '',             //上传状态，数字类型。（0：上传中、1：上传完成、2：上传失败）
@@ -108,7 +108,7 @@ function (cryptoUtils , Promise , config , chI18n) {
 	 * 	fileSize:0,             //文件大小，数字类型
 	 * 	percent:0,              //下载进度（0-100），数字类型
 	 * 	state:0,                //下载状态，数字类型。（0：下载中、1：下载完成、2：下载失败）
-	 * 	savePath:''  
+	 * 	savePath:''
 	 */
 	ApiHttp.prototype.download = function (chApi , savePath , callback) {
 		var that = this ;
@@ -123,7 +123,7 @@ function (cryptoUtils , Promise , config , chI18n) {
         	that.handleFileResponse(ret , err , callback);
         });
 	}
-	
+
 	/**
      * 文件请求同一处理
      */
@@ -142,8 +142,8 @@ function (cryptoUtils , Promise , config , chI18n) {
                       chI18n.SERVER_ERROR ;
             alert(err.msg);
         }
-    } 
-	
+    }
+
     /**
      * 处理统一请求结果
      * @param {object} ret 请求成功结果,json格式如下:

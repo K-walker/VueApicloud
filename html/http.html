@@ -65,14 +65,14 @@
         	<div class="progress-bar light" :style="{width:progress}"></div>
         </div>
     </div>
-    <script src="../script/config/require.config.js"></script>
+    <script src="../script/config/requireconfig.js"></script>
     <script src="../script/lib/require.js"></script>
     <script>
         apiready = function () {
             require.config(requireConfig);
             require(["vue" , "fastclick" , "apiHttp" , 'apiConfig' ,'chI18n'] ,
             function (Vue , FastClick , apiHttp , chApi , chI18n) {
-				
+
                 new Vue({
                     el:"#app",
                     data:{
@@ -93,7 +93,7 @@
                         },
                         // 发送加密的POST请求
                         handleSendEncode:function () {
-                            var that = this ;	
+                            var that = this ;
                             apiHttp.post(chApi.login, {uname:'hwk',age:24}).then(function (result) {
                                 that.content = result.data;
                             });
@@ -114,9 +114,10 @@
                         		}
                         	});
                         },
-                        // 下载文件 
+                        // 下载文件
                         handleDownload:function () {
-                        	apiHttp.download(chApi.download , 'fs://res/android.zip' , function () {
+                            var that = this ;
+                        	apiHttp.download(chApi.download , 'fs://res/download.zip' , function (ret) {
                         		if(ret) {
                         			that.progress = ret.percent+"%";
                         			if(ret.state == 1) {

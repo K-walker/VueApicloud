@@ -30,7 +30,7 @@
         <button type="button" @click="handleDel">删除</button>
         <button type="button" @click="handleRead">读取</button>
     </div>
-    <script src="../script/config/require.config.js"></script>
+    <script src="../script/config/requireconfig.js"></script>
     <script src="../script/lib/require.js"></script>
     <script type="text/javascript">
         apiready = function () {
@@ -43,18 +43,41 @@
                     },
                     methods:{
                         handleCopy:function () {
-                            fs.copyTo("widget://res/data/f1.txt","fs://res/data");
+                            fs.copyTo("widget://res/data/f1.txt","fs://res/data")
+                            .then(function () {
+                                api.toast({
+                                    msg: '文件从 widget://res/data/f1.txt 复制到 fs://res/data',
+                                    duration: 3000,
+                                    location: 'bottom'
+                                });
+                            });
                         },
                         handleMove:function () {
-                            fs.moveTo("widget://res/data/f2.txt","fs://res/data");
+                            fs.moveTo("widget://res/data/f2.txt","fs://res/data")
+                            .then(function () {
+                                api.toast({
+                                    msg: '文件从 widget://res/data/f1.txt 移动到 fs://res/data',
+                                    duration: 3000,
+                                    location: 'bottom'
+                                });
+                            });
                         },
                         handleDel:function () {
-                            fs.delete("fs://res/data/f1.txt");
+                            fs.delete("fs://res/data/f2.txt")
+                            .then(function () {
+                                api.toast({
+                                    msg: '删除 fs://res/data/f2.txt ',
+                                    duration: 3000,
+                                    location: 'bottom'
+                                });
+                            });
                         },
                         handleRead:function () {
                             var that = this ;
-                            fs.read({path:"fs://res/data/f2.txt"}).then(function (res) {
+                            fs.read({path:"fs://res/data/f1.txt"})
+                            .then(function (res) {
                             	that.message = res.data ;
+                                api.toast({msg:'读取 fs://res/data/f1.txt '})
                             }).catch(function (err) {
                             	alert(JSON.stringify(err));
                             });

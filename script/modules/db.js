@@ -59,9 +59,9 @@ function (utils , config , Promise , tbConfig) {
             });
         }
     }
-    
+
     /**
-     * 初始化配置
+     * 初始化表（tableconfig.js）
      */
     DBUtils.prototype.initTable = function () {
         var that = this ;
@@ -155,7 +155,7 @@ function (utils , config , Promise , tbConfig) {
             });
         })
     }
-   
+
 
     /**
      * 插入单条数据
@@ -195,7 +195,7 @@ function (utils , config , Promise , tbConfig) {
         if(where && where != "") sql = sql.concat("where " , where);
         return this.executeSql(sql);
     }
-    
+
     /**
      * 更新
      * @param tbName
@@ -259,7 +259,7 @@ function (utils , config , Promise , tbConfig) {
 
     /**
      * 开启事务
-     * @param method  事务开启后执行的代码块
+     * @param method 事务开启后执行的代码块
      * @param callback
      */
     DBUtils.prototype.beginTransaction = function (method , callback) {

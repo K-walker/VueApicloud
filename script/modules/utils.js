@@ -51,22 +51,22 @@ define(['config' , 'chI18n'] , function (config , chI18n) {
     Utils.prototype.separate = function (obj) {
         var keys = [] , values = [] ;
     	for(key in obj) {
-    		keys.push(key);
-            var value = obj[key] ;
-            var type = this.getType(value) ;
-            if(type === "String") {
+            keys.push(key);
+    		var value = obj[key] ;
+    		var type = this.getType(value) ;
+    		if(type === "String") {
                 value = value.replace(/'/g,"''");
-                value = "'"+value+"'";
-            } else if (type === "Undefined" || type === "Null") {
-                value = "null" ;
-            } else if(type === "Array") {
-                value = value.length == 0 ? "null" : "'"+JSON.stringify(value).replace(/'/g,"''")+"'";
-            } else if(type === "Object") {
+    			value = "'"+value+"'";
+    		} else if (type === "Undefined" || type === "Null") {
+    			value = "null" ;
+    		} else if(type === "Array") {
+    			value = value.length == 0 ? "null" : "'"+JSON.stringify(value).replace(/'/g,"''")+"'";
+    		} else if(type === "Object") {
                 value = JSON.stringify(value).replace(/'/g,"''");
-                value = "'"+value+"'";
-            } else if(type === "Boolean") {
-                value = value ? 1 : 0 ;
-            }
+    			value = "'"+value+"'";
+    		} else if(type === "Boolean") {
+    			value = value ? 1 : 0 ;
+    		}
     		values.push(value);
     	}
         return {
@@ -102,7 +102,7 @@ define(['config' , 'chI18n'] , function (config , chI18n) {
             }
         }
     }
-	
+
     /**
      * 给对象添加属性
      */
@@ -268,6 +268,6 @@ define(['config' , 'chI18n'] , function (config , chI18n) {
      Utils.prototype.getLanguage = function () {
          return (navigator.language || navigator.browserLanguage).toLowerCase();
      }
-	 
+
      return new Utils();
 })
