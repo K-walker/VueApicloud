@@ -3,7 +3,7 @@
 
 这里稍微说明一下，如果你想使用APICLOUD官方打包时的加密功能，对源代码进行加密，请参考官方[代码加密规范](https://docs.apicloud.com/Dev-Guide/Code-Specification)来命名文件（我这里文件的命名都是按照官方要求命名的），另外加密时只会对后缀名是 `*.js , *.html , *.css` 的文件进行加密，其他格式文件则不进行加密
 
-> 项目引入的官方模块 `db , fs , zip , UIMediaScanner`
+> 如需运行项目，请先引入官方模块 `db , fs , zip , UIMediaScanner` ，项目中包含数据库，文件，网络请求，加解密等操作的实例代码，请仔细阅读。
 
 # 项目结构 (以下为主要目录结构)
 ```
