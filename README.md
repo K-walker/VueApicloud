@@ -90,7 +90,7 @@ VueApicloud
 2. 向数据库表中插入数据的时候要先初始化表(详见db.html)
 3. 后台返回的需要存储的字段需与表字段一一对应
 4. 如果后台接口中新增了字段，记得在插入数据之前检查一下是否有新增字段(详见db.html)
-5. 由于每个项目组接口返回的格式可能不一样，在确定好返回格式之后， 要修改下httpPromise.js 文件中 handleResponse 中的处理方式，以及在发送请求时的配置设置，已我当前项目为例：
+5. 由于每个项目组接口返回的格式可能不一样，在确定好返回格式之后， 要修改下http.js 文件中 handleResponse 中的处理方式，以及在发送请求时的配置设置，已我当前项目为例：
 
 ```
     // 接口返回格式
@@ -99,9 +99,7 @@ VueApicloud
         data:[]          // 接口返回的具体数据Array或Object
     }
 ```
-当前请求方式(非表单提交): `Content-Type:'appplication/json'` ， body为json对象或字符串
-详细配置请参考apicloud [ajax配置](https://docs.apicloud.com/Client-API/api#3)
-注意，这里的请求方式需与后台协商好，本项目中只是一个示例，根据你自己实际情况进行修改
+当前请求方式(非表单提交): `Content-Type:'appplication/json'` ， body为json对象或字符串,详细配置请参考apicloud [ajax配置](https://docs.apicloud.com/Client-API/api#3) 注意，这里的请求方式需与后台协商好，本项目中只是一个示例，根据你自己实际情况进行修改
 
 6. 由于接口请求使用了 `RSA+AES` 的数据加密模式，因此每个接口的公私钥统一由后台生成，公钥提前告诉前端（参考 apiconfig.js 配置） 
 
